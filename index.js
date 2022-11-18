@@ -7,11 +7,11 @@ const scaledCanvas = {
   width: canvas.width / 4,
   height: canvas.height / 4,
 };
-const floorCollisions2D = [];
+let floorCollisions2D = [];
 for (let i = 0; i < floorCollisions.length; i += 36) {
   floorCollisions2D.push(floorCollisions.slice(i, i + 36));
 }
-const collisionBlocks = [];
+let collisionBlocks = [];
 floorCollisions2D.forEach((row,y) => {
   row.forEach((symbol,x) => {
     if (symbol === 202) {
@@ -49,8 +49,11 @@ platformCollisions2D.forEach((row,y) => {
 });
 
 const player = new Player({
-  x: 0,
-  y: 0,
+  position: {
+    x: 100,
+    y: 0,
+  },
+  collisionBlocks,
 });
 
 const keys = {
@@ -84,8 +87,6 @@ function animate() {
   platformCollisionBlocks.forEach(block => {
     block.update()
   })
-  c.restore();
-
   player.update();
   player.velocity.x = 0;
   if (keys.d.pressed) {
@@ -94,6 +95,9 @@ function animate() {
   if (keys.a.pressed) {
     player.velocity.x = -5;
   }
+  c.restore();
+
+  
 }
 animate();
 
@@ -106,10 +110,10 @@ window.addEventListener(`keydown`, (e) => {
       keys.a.pressed = true;
       break;
     case ` `:
-      player.velocity.y = -20;
+      player.velocity.y = -8;
       break;
     case `w`:
-      player.velocity.y = -20;
+      player.velocity.y = -8;
       break;
   }
 });
