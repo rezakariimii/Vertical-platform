@@ -4,8 +4,8 @@ class Sprite {
     this.scale = scale;
     this.image = new Image();
     this.image.onload = () => {
-        this.width = (this.image.width / this.frameRate) * this.scale
-        this.height = (this.image.height * this.scale)
+      this.width = (this.image.width / this.frameRate) * this.scale;
+      this.height = this.image.height * this.scale;
     };
     this.image.src = imageSrc;
     this.frameRate = frameRate;
